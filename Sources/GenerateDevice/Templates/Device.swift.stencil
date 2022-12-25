@@ -1,3 +1,4 @@
+{% set accessModifier %}{% if access-level == "public" %}public {% endif %}{% endset %}
 {%- macro caseName device -%}
 {{ device.productType | swiftIdentifier | lowerFirstLetter }}
 {%- endmacro -%}
@@ -6,7 +7,7 @@
 
 import Darwin
 
-enum Device: String, RawRepresentable, CaseIterable, Equatable, Hashable, Codable {
+{{ accessModifier }}enum Device: String, RawRepresentable, CaseIterable, Equatable, Hashable, Codable {
 {%- for device in devices %}
     /// {{ device.productDescription }}.
     case {% call caseName device %} = "{{ device.productType }}"

@@ -15,6 +15,9 @@ struct GenerateDevice: ParsableCommand {
         version: "0.1.0"
     )
 
+    @OptionGroup(title: "Output format")
+    var outputFormat: OutputFormat
+
     @Option(name: [.short, .customLong("output")], help: "Write output to a specified file")
     var outputFile: String?
 
@@ -29,7 +32,11 @@ struct GenerateDevice: ParsableCommand {
         ext.registerStencilSwiftExtensions()
         let environment = Environment(loader: FileSystemLoader(bundle: [.module]), extensions: [ext])
 
-        let rendered = try environment.renderTemplate(name: "Templates/Device.swift.stencil", devices: devices)
+        let rendered = try environment.renderTemplate(
+            name: "Templates/Device.swift.stencil",
+            devices: devices,
+            format: outputFormat
+        )
 
         if let outputFile {
             try rendered.write(toFile: outputFile, atomically: true, encoding: .utf8)
