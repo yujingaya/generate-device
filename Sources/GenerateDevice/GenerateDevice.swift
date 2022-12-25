@@ -12,7 +12,7 @@ struct GenerateDevice: ParsableCommand {
         usage: """
             generate-device [--output <output>] <device-traits>
             """,
-        version: "0.1.0"
+        version: "0.1.1"
     )
 
     @OptionGroup(title: "Output format")
