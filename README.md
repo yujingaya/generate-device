@@ -1,15 +1,15 @@
 A command line utility to generate `Device.swift` that lists devices in Xcode device database.
 
-### Installing
+### Install
 
 ```zsh
-mint install yujingaya/generate-device
+$ mint install yujingaya/generate-device
 ```
 
-### Usage
+### Run
 
 ```zsh
-mint run generate-device "$(xcode-select -p)/Platforms/iPhoneOS.platform/usr/standalone/device_traits.db"
+$ mint run generate-device "$(xcode-select -p)/Platforms/iPhoneOS.platform/usr/standalone/device_traits.db"
 ```
 
 This will produce swift code like below, to the standard output. 
@@ -33,9 +33,10 @@ enum Device: String, RawRepresentable, CaseIterable, Equatable, Hashable, Codabl
 // ...
 ```
 
-The command has several options to control output.
+### Help
 
 ```
+$ mint run generate-device --help
 OVERVIEW: Generate Device.swift from a device_traits.db file
 
 USAGE: generate-device [--output <output>] <device-traits>
