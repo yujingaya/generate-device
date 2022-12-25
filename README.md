@@ -1,14 +1,12 @@
-# GenerateDevice
+A command line utility to generate `Device.swift` that lists devices in Xcode device database.
 
-`generate-device` is a command line utility to generate Swift enum `Device` that lists devices in Xcode device database.
-
-## Installing
+### Installing
 
 ```zsh
 mint install yujingaya/generate-device
 ```
 
-## Usage
+### Usage
 
 ```zsh
 mint run generate-device "$(xcode-select -p)/Platforms/iPhoneOS.platform/usr/standalone/device_traits.db"
@@ -33,4 +31,25 @@ enum Device: String, RawRepresentable, CaseIterable, Equatable, Hashable, Codabl
     case iPad11_2 = "iPad11,2"
 
 // ...
+```
+
+The command has several options to control output.
+
+```
+OVERVIEW: Generate Device.swift from a device_traits.db file
+
+USAGE: generate-device [--output <output>] <device-traits>
+
+ARGUMENTS:
+  <device-traits>         The path to device_traits.db file
+
+OUTPUT FORMAT:
+  --public/--internal     Set access level modifier for Device enumeration (default: --internal)
+
+OPTIONS:
+  -m, --minimum-deployment-target <minimum-deployment-target>
+                          Omit devices that doesn't support specified deployment target
+  -o, --output <output>   Write output to a specified file
+  --version               Show the version.
+  -h, --help              Show help information.
 ```
