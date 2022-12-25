@@ -18,6 +18,12 @@ struct GenerateDevice: ParsableCommand {
     @OptionGroup(title: "Output format")
     var outputFormat: OutputFormat
 
+    @Option(
+        name: [.short, .customLong("minimum-deployment-target")],
+        help: "Omit devices that doesn't support specified deployment target"
+    )
+    var minimumDeploymentTarget: DeploymentTarget?
+
     @Option(name: [.short, .customLong("output")], help: "Write output to a specified file")
     var outputFile: String?
 
@@ -26,7 +32,10 @@ struct GenerateDevice: ParsableCommand {
 
     func run() throws {
         let connection = try Connection(deviceTraits)
-        let devices = try connection.devices
+        var devices = try connection.devices
+        if let minimumDeploymentTarget {
+            devices = devices.filter { $0.maximumDeploymentTarget >= minimumDeploymentTarget }
+        }
 
         let ext = Extension()
         ext.registerStencilSwiftExtensions()
